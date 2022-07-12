@@ -99,9 +99,45 @@ function showCelsiusTemp(event) {
   celsiusTemp.classList.add("active");
 }
 
+
+function displayForecast(){
+let weatherForecast = document.querySelector("#weather_forecast");
+let weatherForecastHTML=`<div class="row">`
+let days = [
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+];
+days.forEach (function(day){
+  weatherForecastHTML= weatherForecastHTML + `<div class="col-2 days" id="forecast_day">
+          <span class="weather_forecast_day">
+            ${day}
+          </span>
+        </br>
+            <img src="http://openweathermap.org/img/wn/04d@2x.png" width="50" alt="" class="icon_forecast">
+      </br>
+            <span class="weather_forecast_max">
+              22°
+            </span>
+            <span class="weather_forecast_min">
+              15°
+            </span>
+        </div>
+        `
+
+      })
+weatherForecastHTML=weatherForecastHTML + `</div>`
+weatherForecast.innerHTML= weatherForecastHTML
+}
+
+
+displayForecast()
 let temp = null;
 search("London");
 form.addEventListener("submit", cityValue);
 searchButton.addEventListener("click", cityValue);
 fahrenheitTemp.addEventListener("click", showFahrenheitTemp);
 celsiusTemp.addEventListener("click", showCelsiusTemp);
+
