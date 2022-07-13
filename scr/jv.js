@@ -126,7 +126,7 @@ forecastWeather.forEach(function (forecastWeatherDays, index) {
   if (index<6) {
   weatherForecastHTML =
     weatherForecastHTML +
-    `<div class="col-2 days" id="forecast_day">
+    `<div class="col-2" id="forecast_day">
           <span class="weather_forecast_day">
             ${forecastDate (new Date (forecastWeatherDays.dt *1000))}
           </span>
