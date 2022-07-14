@@ -157,3 +157,12 @@ searchButton.addEventListener("click", cityValue);
 fahrenheitTemp.addEventListener("click", showFahrenheitTemp);
 celsiusTemp.addEventListener("click", showCelsiusTemp);
 
+function showPosition (position){
+let latitudePosition = (position.coords.latitude);
+let longitudePosition = (position.coords.longitude);
+let urlAPIPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${latitudePosition}&lon=${longitudePosition}&appid=${apiKey}&units=metric`;
+axios.get(urlAPIPosition).then(showTemperature);
+}
+
+ navigator.geolocation.getCurrentPosition(showPosition)
+
