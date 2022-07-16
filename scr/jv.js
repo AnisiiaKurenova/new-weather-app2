@@ -6,6 +6,13 @@ let fahrenheitTemp = document.querySelector("#fahrenheit_temp");
 let celsiusTemp = document.querySelector("#celsius_temp");
 let tempNow = document.querySelector("#temp_now");
 
+function showPosition(position) {
+  let latitudePosition = position.coords.latitude;
+  let longitudePosition = position.coords.longitude;
+  let urlAPIPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${latitudePosition}&lon=${longitudePosition}&appid=${apiKey}&units=metric`;
+  axios.get(urlAPIPosition).then(showTemperature);
+}
+
 function formateDate(timestamp) {
   let date = new Date(timestamp);
   let hours = date.getHours();
@@ -53,10 +60,8 @@ function formateDate(timestamp) {
 function forecastAPI(coordinate){
 apiUrlForecast= `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinate.lat}&lon=${coordinate.lon}&appid=${apiKey}&units=metric`
 axios.get(apiUrlForecast).then(displayForecast);
-
-
-
 }
+
 function cityValue(event) {
   event.preventDefault();
   let citySearch = searchEnter.value;
@@ -67,8 +72,6 @@ function search(city) {
   axios.get(apiUrl).then(showTemperature);
 }
 function showTemperature(response) {
-  console.log(response)
-  
   let hCity = document.querySelector("#cityInput");
   let country = document.querySelector("#country");
   let wind = document.querySelector("#speed_wind");
@@ -114,12 +117,10 @@ function forecastDate(timestamp) {
   let forecastWeek=timestamp.getDay()
   days=[ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 return days[forecastWeek];
-
 }
 
 function displayForecast(response){
-  console.log(response.data.daily);
-  let forecastWeather = response.data.daily;
+let forecastWeather = response.data.daily;
 let weatherForecast = document.querySelector("#weather_forecast");
 let weatherForecastHTML=`<div class="row">`
 forecastWeather.forEach(function (forecastWeatherDays, index) {
@@ -148,21 +149,11 @@ weatherForecastHTML=weatherForecastHTML + `</div>`
 weatherForecast.innerHTML= weatherForecastHTML
 }
 
-
-
 let temp = null;
 search("London");
 form.addEventListener("submit", cityValue);
 searchButton.addEventListener("click", cityValue);
 fahrenheitTemp.addEventListener("click", showFahrenheitTemp);
 celsiusTemp.addEventListener("click", showCelsiusTemp);
-
-function showPosition (position){
-let latitudePosition = (position.coords.latitude);
-let longitudePosition = (position.coords.longitude);
-let urlAPIPosition = `https://api.openweathermap.org/data/2.5/weather?lat=${latitudePosition}&lon=${longitudePosition}&appid=${apiKey}&units=metric`;
-axios.get(urlAPIPosition).then(showTemperature);
-}
-
  navigator.geolocation.getCurrentPosition(showPosition)
 
